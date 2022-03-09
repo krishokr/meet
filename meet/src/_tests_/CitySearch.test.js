@@ -16,16 +16,16 @@ describe('<CitySearch /> component', () => {
 
     test('renders text input', () => {
         expect(CitySearchWrapper.find('.city')).toHaveLength(1);
-    })
+    });
 
     test('renders a list of suggestions', () => {
         expect(CitySearchWrapper.find('.suggestions')).toHaveLength(1);
-    })
+    });
 
-    test('renders text input correctly', () => {
+    test('text input is rendered properly', () => {
         const query = CitySearchWrapper.state('query');
         expect(CitySearchWrapper.find('.city').prop('value')).toBe(query);
-    })
+    });
 
     test('change state when user input changes', () => {
         CitySearchWrapper.setState({query: 'Munich'});
@@ -33,7 +33,7 @@ describe('<CitySearch /> component', () => {
         CitySearchWrapper.find('.city').simulate('change', eventObject);
 
         expect(CitySearchWrapper.state('query')).toBe('Berlin')
-    })
+    });
 
     test('render list of suggestions correctly', () => {
         const locations = extractLocations(mockData);
@@ -73,5 +73,7 @@ describe('<CitySearch /> component', () => {
 
         expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
 
-    })
+    });
+
+    
 })
