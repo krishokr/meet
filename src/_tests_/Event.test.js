@@ -69,7 +69,5 @@ describe('<Event /> component', () => {
         let details = event.description;
         expect(EventWrapper.find('.details-text').text()).toBe(details);
     });
-    
-
 
 })
