@@ -1,3 +1,4 @@
+import { mockData } from './mock-data';
 
 function extractLocations(events) {
     //creates new array with only locations
@@ -12,4 +13,8 @@ function extractDetails(events) {
     return details;
 }
 
-export {extractLocations, extractDetails};
+async function getEvents() {
+    return mockData;
+}
+
+export {extractLocations, extractDetails, getEvents};

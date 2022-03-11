@@ -60,7 +60,7 @@ describe('<Event /> component', () => {
         expect(EventWrapper.state('detailsContainerClass')).toBe('shown');
         expect(EventWrapper.find('.shown')).toHaveLength(1);
     });
-
+    
     test('render detail text', () => {
         EventWrapper.setState({detailsButtonClass: 'show-details-button', detailsButtonText: 'Show Details'}, () => {
             EventWrapper.find('.show-details-button').simulate('click')
