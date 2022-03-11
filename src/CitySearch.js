@@ -17,9 +17,7 @@ export default class CitySearch extends Component {
     }
 
     handleItemClick = (suggestion) => {
-        this.setState({query: suggestion});
-        console.log('QUERY: ' + this.state.suggestion);
-        this.props.updateEvents(this.state.query);
+        this.setState({query: suggestion}, () => this.props.updateEvents(this.state.query));
     }
 
   render() {

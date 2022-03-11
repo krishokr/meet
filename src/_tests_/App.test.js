@@ -69,7 +69,7 @@ describe('<App /> integration', () => {
         const eventsToShow = allEvents.filter(event => event.location === selectedCity);
         expect(AppWrapper.state('events')).toEqual(eventsToShow);
         AppWrapper.unmount();
-    });
+    })
 
     test('get a list of all events if a user selects "See all cities', async () => {
         const AppWrapper = mount(<App />);
@@ -78,6 +78,7 @@ describe('<App /> integration', () => {
         const allEvents = await getEvents();
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
-    })
+    });
+    
 });
 

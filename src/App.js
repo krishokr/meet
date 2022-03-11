@@ -12,11 +12,9 @@ export default class App extends Component {
   }
 
   updateEvents = async (location) => {
-    console.log('LOCATION: '+location);
     getEvents().then((events) => {
       const locationEvents = (location === 'all') ? 
       events : events.filter((event) => event.location === location);
-      // console.log('EventLocation: ' + locationEvents);
       this.setState({ events: locationEvents });
     });
   }
