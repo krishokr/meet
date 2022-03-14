@@ -83,10 +83,20 @@ describe('<App /> integration', () => {
     test('App component receives a number of events query from NumberofEvents component', () => {
         const AppWrapper = mount(<App />);
         const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-        NumberOfEventsWrapper.setState({query: '20'});
+        NumberOfEventsWrapper.find('.number-of-events').simulate('change',  {target: { value: '2'}});
         const query = NumberOfEventsWrapper.state('query');
         expect(AppWrapper.state('listLength')).toBe(query);
+        expect(AppWrapper.state('listLength')).toBe('2');
+        AppWrapper.unmount();
+    });
+
+    test('App component gets correct number of events as specified by user', async () => {
+        const AppWrapper = mount(<App />);
+        const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+        AppWrapper.instance().updateLength(3);
+        expect(AppWrapper.state('events')).toHaveLength(3);
     })
+
     
 });
 

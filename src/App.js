@@ -34,8 +34,16 @@ export default class App extends Component {
     });
   }
 
-  updateListLength = (length) => {
-    this.setState({listLength: length})
+  updateLength = async (length) => {
+    this.setState({listLength: length}, () => {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({events: events.slice(length+1)});
+        }
+      });
+      
+    });
+
   }
 
   render() {
@@ -43,7 +51,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <EventList events={this.state.events}/>
-        <NumberOfEvents updateEvents={this.updateListLength}/>
+        <NumberOfEvents updateLength={this.updateLength}/>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
       </div>
     );

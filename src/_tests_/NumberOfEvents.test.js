@@ -11,7 +11,7 @@ describe('<NumberOfEvents /> component', () => {
 
     let NumberOfEventsWrapper;
     beforeAll(() => {
-        NumberOfEventsWrapper = shallow(<NumberOfEvents />);
+        NumberOfEventsWrapper = shallow(<NumberOfEvents updateLength={() => {}}/>);
     })
 
     test('textbox element is rendered', () => {
@@ -19,7 +19,7 @@ describe('<NumberOfEvents /> component', () => {
     });
 
     test('number of events is 32 when there is no query', () => {
-        expect(NumberOfEventsWrapper.state('query')).toBe('32');
+        expect(NumberOfEventsWrapper.state('query')).toBe(32);
     });
 
     test('textbox input is rendered in state properly', () => {
