@@ -79,6 +79,14 @@ describe('<App /> integration', () => {
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
     });
+
+    test('App component receives a number of events query from NumberofEvents component', () => {
+        const AppWrapper = mount(<App />);
+        const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+        NumberOfEventsWrapper.setState({query: '20'});
+        const query = NumberOfEventsWrapper.state('query');
+        expect(AppWrapper.state('listLength')).toBe(query);
+    })
     
 });
 
