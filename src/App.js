@@ -34,15 +34,18 @@ export default class App extends Component {
     });
   }
 
-  updateLength = async (length) => {
+  updateLength = (length) => {
+    console.log(length)
     this.setState({listLength: length}, () => {
-      getEvents().then((events) => {
-        if (this.mounted) {
-          this.setState({events: events.slice(length+1)});
-        }
-      });
+      this.setState({events: this.state.events.slice(0, length)})
+      // getEvents().then((events) => {
+      //   if (this.mounted) {
+      //     this.setState({events: events.slice(length+1)});
+      //   }
+      // });
       
     });
+    console.log(this.state.events);
 
   }
 

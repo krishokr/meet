@@ -92,7 +92,8 @@ describe('<App /> integration', () => {
 
     test('App component gets correct number of events as specified by user', async () => {
         const AppWrapper = mount(<App />);
-        const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+        console.log(AppWrapper.state('events'));
+        AppWrapper.setState({"events": mockData})
         AppWrapper.instance().updateLength(3);
         expect(AppWrapper.state('events')).toHaveLength(3);
     })
