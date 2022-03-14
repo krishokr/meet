@@ -17,6 +17,7 @@ export default class App extends Component {
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
+        console.log('mounted...')
         this.setState({events, locations: extractLocations(events)});
       }
     })
@@ -34,19 +35,16 @@ export default class App extends Component {
     });
   }
 
-  updateLength = (length) => {
-    console.log(length)
-    this.setState({listLength: length}, () => {
-      this.setState({events: this.state.events.slice(0, length)})
-      // getEvents().then((events) => {
-      //   if (this.mounted) {
-      //     this.setState({events: events.slice(length+1)});
-      //   }
-      // });
-      
-    });
-    console.log(this.state.events);
+  updateLength = async (length) => {
 
+    if (this.state.events.length <= length) {
+      return await getEvents().then(events => {
+        //test wants me to check if mounted...
+        this.mounted ? this.setState({events: events.slice(0,length)}) : events
+      })
+    }
+
+    return this.setState({events: this.state.events.slice(0, length)})
   }
 
   render() {
