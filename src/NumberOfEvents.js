@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 
 export default class NumberOfEvents extends Component {
     state = {
-        query: 32
+        query: 5
     }
 
     handleChange = (event) => {
-      let value = event.target.value
+      let value = event.target.value;
       this.setState({query: value}, () => this.props.updateLength(this.state.query));
     }
-
 
   render() {
 

@@ -32,6 +32,8 @@ export default class Event extends Component {
     
     return (
       <div>
+        <h1>{this.props.event.summary}</h1>
+        <h2>{this.props.event.location}</h2>
         <div className={this.state.detailsContainerClass}>
           <h1 className='details-text'>{this.props.event.description}</h1>
         </div>

@@ -8,17 +8,18 @@ import { extractLocations, getEvents } from './api';
 
 export default class App extends Component {
   state = {
+    allEvents: [],
     events: [],
     locations: [],
-    listLength: ''
+    numberOfEvents: 3
   }
 
   componentDidMount() {
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
-        console.log('mounted...')
-        this.setState({events, locations: extractLocations(events)});
+        this.setState({allEvents: events, locations: extractLocations(events)});
+        this.setState({events: events.slice(0,5)});
       }
     })
   }
@@ -27,25 +28,25 @@ export default class App extends Component {
     this.mounted = false;
   }
 
-  updateEvents = async (location) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all') ? 
-      events : events.filter((event) => event.location === location);
-      this.setState({ events: locationEvents });
-    });
+  updateEvents = async (location, eventCount) => {
+      if (location) {
+
+        const locationEvents = this.state.allEvents.filter((event) => event.location === location);
+        const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
+        return this.setState({ events: correctNumberOfEvents });
+      }
+
+      if (eventCount) {
+        const correctNumberOfEvents = this.state.events.slice(0, eventCount);
+        return this.setState({events: correctNumberOfEvents})
+      }
+      
   }
 
-  updateLength = async (length) => {
-
-    if (this.state.events.length <= length && this.mounted) {
-      return await getEvents().then(events => {
-        //test wants me to check if mounted...
-        this.setState({events: events.slice(0,length)});
-      })
-    }
-
-    return this.setState({events: this.state.events.slice(0, length)})
+  updateLength = (length) => {
+    return this.setState({numberOfEvents: length}, () => this.updateEvents(undefined, length))
   }
+
 
   render() {
 

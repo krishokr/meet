@@ -18,8 +18,8 @@ describe('<NumberOfEvents /> component', () => {
         expect(NumberOfEventsWrapper.find('.number-of-events')).toHaveLength(1);
     });
 
-    test('number of events is 32 when there is no query', () => {
-        expect(NumberOfEventsWrapper.state('query')).toBe(32);
+    test('number of events is 5 when there is no query', () => {
+        expect(NumberOfEventsWrapper.state('query')).toBe(5);
     });
 
     test('textbox input is rendered in state properly', () => {
