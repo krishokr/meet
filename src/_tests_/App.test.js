@@ -105,21 +105,12 @@ describe('<App /> integration', () => {
         AppWrapper.unmount();
     });
 
-    test('App component passes the correct number of events to EventList', async () => {
+    test('App component passes the correct number of events to EventList', () => {
         const AppWrapper = mount(<App />);
+        AppWrapper.setState({events: mockData.slice(0, 2)});
         const EventListWrapper = AppWrapper.find(EventList);
-        await AppWrapper.setState({events: mockData});
-        await AppWrapper.instance().updateLength(2);
-        // this is different from AppWrapper.find(..) 
-        // console.log(EventListWrapper.prop('events').length);
-        // console.log(AppWrapper.state('events').length);
-        const events = AppWrapper.state('events').length;
-        console.log(events)
-        expect(AppWrapper.find(EventList).prop('events')).toHaveLength(events);
-
-
-        unmount(<App />);
-
+        expect(EventListWrapper.prop('events')).toBe(AppWrapper.state('events'));
+        AppWrapper.unmount();
     })
 
 

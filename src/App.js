@@ -37,10 +37,10 @@ export default class App extends Component {
 
   updateLength = async (length) => {
 
-    if (this.state.events.length <= length) {
+    if (this.state.events.length <= length && this.mounted) {
       return await getEvents().then(events => {
         //test wants me to check if mounted...
-        this.mounted ? this.setState({events: events.slice(0,length)}) : events
+        this.setState({events: events.slice(0,length)});
       })
     }
 
