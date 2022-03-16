@@ -11,6 +11,7 @@ export default class App extends Component {
     allEvents: [],
     events: [],
     locations: [],
+    currentLocation: '',
     numberOfEvents: 3
   }
 
@@ -28,20 +29,72 @@ export default class App extends Component {
     this.mounted = false;
   }
 
-  updateEvents = async (location, eventCount) => {
-      if (location) {
-
-        const locationEvents = this.state.allEvents.filter((event) => event.location === location);
-        const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
-        return this.setState({ events: correctNumberOfEvents });
-      }
-
-      if (eventCount) {
-        const correctNumberOfEvents = this.state.events.slice(0, eventCount);
-        return this.setState({events: correctNumberOfEvents})
-      }
-      
+  _locationIsAll = (eventCount) => {
+    this.setState({currentLocation: 'all'});
+    if (eventCount) {
+      this.setState({numberOfEvents: eventCount});
+      const correctNumberOfEvents = this.state.allEvents.slice(0,eventCount);
+      return this.setState({events: correctNumberOfEvents});
+    }
+    const hasNumberOfEvents = this.state.numberOfEvents !== (undefined || null)
+    const correctNumberOfEvents = hasNumberOfEvents ? this.state.allEvents.slice(0, this.state.numberOfEvents) : this.state.allEvents;
+    return this.setState({events: correctNumberOfEvents});
   }
+
+  _locationSpecified = (location) => {
+    this.setState({currentLocation: location});
+    const locationEvents = this.state.allEvents.filter((event) => event.location === location);
+    const correctNumberOfEvents = locationEvents.slice(0, this.state.numberOfEvents);
+    return this.setState({events: correctNumberOfEvents});
+  }
+
+  _eventCountSpecified = (eventCount) => {
+    this.setState({numberOfEvents: eventCount});
+    const hasCurrentLocation = this.state.currentLocation !== '';
+    const locationEvents = this.state.allEvents.filter(event => event.location === this.state.currentLocation);
+    const correctNumberOfEvents = hasCurrentLocation ? locationEvents.slice(0, eventCount) : this.state.allEvents.slice(0, eventCount);
+    return this.setState({events: correctNumberOfEvents});
+  }
+
+  updateEvents = async(location, eventCount) => {
+
+    if (location) {
+      const isLocationAll = location === 'all';
+      isLocationAll ? this._locationIsAll(eventCount) : this._locationSpecified(location);
+    }
+    if (eventCount) {
+      const isLocationAll = this.state.currentLocation === 'all';
+      isLocationAll ? this._locationIsAll(eventCount) : this._eventCountSpecified(eventCount);
+    }
+
+  }
+
+
+  // updateEvents = async (location, eventCount) => {
+      
+  //     if (location) {
+  //       this.setState({currentLocation: location});
+  //       const locationEvents = this.state.allEvents.filter((event) => event.location === location);
+  //       const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
+  //       this.setState({ events: correctNumberOfEvents });
+  //     }
+
+  //     if (eventCount) {     
+  //         if (this.currentLocation !== 'all') {
+  //           const locationEvents = this.state.allEvents.filter(event => event.location === this.state.currentLocation);
+  //           const correctNumberOfEvents = locationEvents.slice(0, eventCount);
+  //           this.setState({events: correctNumberOfEvents})
+  //         }
+  //     }
+
+  //     if (eventCount && location) {
+  //       const locationEvents = this.state.allEvents.filter((event) => event.location === location);
+  //       const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
+  //       this.setState({ events: correctNumberOfEvents });
+  //     }
+      
+      
+  // }
 
   updateLength = (length) => {
     return this.setState({numberOfEvents: length}, () => this.updateEvents(undefined, length))

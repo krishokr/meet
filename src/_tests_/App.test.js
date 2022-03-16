@@ -70,12 +70,13 @@ describe('<App /> integration', () => {
         const eventsToShow = allEvents.filter(event => event.location === selectedCity);
         expect(AppWrapper.state('events')).toEqual(eventsToShow);
         AppWrapper.unmount();
-    })
+    });
 
     test('get a list of all events if a user selects "See all cities', async () => {
         const AppWrapper = mount(<App />);
         const allEvents = await getEvents();
         AppWrapper.setState({allEvents});
+        AppWrapper.setState({numberOfEvents: allEvents.length});
         const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
         await suggestionItems.at(suggestionItems.length-1).simulate('click');
         expect(AppWrapper.state('events')).toEqual(allEvents);
@@ -98,7 +99,7 @@ describe('<App /> integration', () => {
         const allEvents = await getEvents();
         AppWrapper.setState({allEvents});
         NumberOfEventsWrapper.find('.number-of-events').simulate('change', {target:{value: 3}});
-
+        console.log(AppWrapper.state('currentLocation'));
         expect(AppWrapper.state('events')).toHaveLength(3);
         AppWrapper.unmount();
     })
@@ -110,6 +111,46 @@ describe('<App /> integration', () => {
         expect(EventListWrapper.prop('events')).toBe(AppWrapper.state('events'));
         AppWrapper.unmount();
     });
+
+    test('numberOfEvents changes from less events to more events, or OLD NUM < NEW NUM', async () => {
+        const AppWrapper = mount(<App />);
+        const allEvents = await getEvents();
+        AppWrapper.setState({allEvents});
+        AppWrapper.instance().updateEvents('Washington, DC', 1);
+        expect(AppWrapper.state('events')).toHaveLength(1);
+        AppWrapper.instance().updateEvents('Washington, DC', 3);
+        expect(AppWrapper.state('events')).toHaveLength(3);
+        AppWrapper.unmount()
+    });
+
+
+    test('currentLocation state holds the specified location', async () => {
+        const AppWrapper = mount(<App />);
+        const allEvents = await getEvents();
+        AppWrapper.setState({allEvents});
+        AppWrapper.instance().updateEvents('Washington, DC', undefined);
+        expect(AppWrapper.state('currentLocation')).toBe('Washington, DC');
+        AppWrapper.unmount()
+    });
+
+    test('_locationIsAll function returns specified number of events from all locations', async () => {
+        const AppWrapper = mount(<App />);
+        const allEvents = await getEvents();
+        AppWrapper.setState({allEvents});
+        AppWrapper.instance()._locationIsAll(4);
+        expect(AppWrapper.state('events')).toHaveLength(4);
+        AppWrapper.unmount()
+    });
+
+    test('_locationIsAll function returns 5 events when number of events is unspecified', async() => {
+        const AppWrapper = mount(<App />);
+        const allEvents = await getEvents();
+        AppWrapper.setState({allEvents});
+        AppWrapper.setState({numberOfEvents: 5});
+        AppWrapper.instance()._locationIsAll(undefined);
+        expect(AppWrapper.state('events')).toHaveLength(5);
+        AppWrapper.unmount()
+    })
 
 
     
