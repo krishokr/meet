@@ -3,33 +3,13 @@ import './Styles/Event.css';
 
 export default class Event extends Component {
   state = {
-    detailsButtonClass: 'show-details-button',
-    detailsButtonText: 'Show Details',
-    detailsContainerClass: 'hidden',
     detailsDisplayed: false
   }
 
   render() {
 
-    const changeClass = () => {
-      if (this.state.detailsButtonClass === 'show-details-button') {
-        this.setState({detailsContainerClass: 'shown'});
-        return this.setState({detailsButtonClass: 'hide-details-button'});
-      }
-      return this.setState({detailsButtonClass: 'show-details-button'});
-    }
-
-    const changeText = () => {
-      if (this.state.detailsButtonText === 'Show Details') {
-        return this.setState({detailsButtonText: 'Hide Details'});
-      }
-      return this.setState({detailsButtonText: 'Show Details'})
-    }
-
     const toggleButtonClickState= () => {
-      this.state.detailsDisplayed ? this.setState({detailsDisplayed: false}) : this.setState({detailsDisplayed: true})
-      changeClass();
-      changeText();
+      this.state.detailsDisplayed ? this.setState({detailsDisplayed: false}) : this.setState({detailsDisplayed: true});
     }
 
     const dateTimeFormat = (string) => {

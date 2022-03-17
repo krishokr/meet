@@ -7,9 +7,8 @@ export default class NumberOfEvents extends Component {
 
     handleChange = (event) => {
       let value = event.target.value;
-      console.log(this.props)
       this.setState({query: value}, () => this.props.updateEvents(undefined, this.state.query));
-      
+
     }
 
   render() {
