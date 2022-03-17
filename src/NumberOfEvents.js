@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import './Styles/NumberOfEvents.css';
 
 export default class NumberOfEvents extends Component {
     state = {
@@ -15,7 +16,7 @@ export default class NumberOfEvents extends Component {
 
     return (
       <div className='NumberOfEvents-container'>
-          <input type="text" pattern="[0-9]*" className='number-of-events' value={this.state.query} onChange={this.handleChange}/>
+          <input placeholder='number of events' type="text" pattern="[0-9]*" className='number-of-events' value={this.state.query} onChange={this.handleChange}/>
       </div>
     )
   }

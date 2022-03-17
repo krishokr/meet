@@ -1,0 +1,69 @@
+.CitySearch {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.suggestions {
+  width: 250px;
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  top: 43px;
+  font-size: 14px;
+  box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
+}
+
+.suggestions > li {
+  text-align: left;
+  padding: 8px 6px 8px 10px;
+  background-color: #eee;
+  cursor: default;
+}
+
+.suggestions > li:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.suggestions > li:hover {
+  background-color: #bcdcdb;
+}
+
+
+input[type="text"],
+input[type="number"] {
+  padding: 8px 6px 8px 10px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  line-height: 20px;
+  height: 38px;
+}
+
+.city {
+    width: 250px;
+    background-color: #000;
+    border: 1px solid #FDE74C;
+    color: #fff;
+    font-family: 'Quicksand';
+}
+::placeholder {
+    color: #fff;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.suggestions li:hover {
+  cursor: pointer;
+}

@@ -1,32 +1,33 @@
-
-
-.hidden{
-    display: none;
-}
-
-.shown{
-    display: flex;
-}
-
 .event-card {
     color: #fff;
-    border: solid 1px #000;
-    border-radius: 10px;
-    background: #F19955;
+    border: solid 1px #61dafb;
+    border-radius: 5px; 
+    margin: 5% 8%;
 }
 
 .event-card button {
+    color: #61dafb;
     font-size: 1.2vw;
     background-color: transparent;
     border: none;
-    transition: 1s;
-    border-radius: 2px;
+    border-width: 1px;
+    transition: 0.5s;
     font-family: 'Quicksand';
+    margin-bottom: 10%;
 }
 .event-card button:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
-    border-radius: 5px;
-    border: none;
+    border: 1px solid #61dafb;
+}
+
+.event-details {
+    padding: 5%;
+    font-size: 1.2vw;
+}
+
+@media (max-width: 800px) {
+    .event-details {
+        font-size: 3vw;
+    }
 }

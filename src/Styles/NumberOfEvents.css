@@ -1,0 +1,19 @@
+.NumberOfEvents-container {
+    margin: 0 5%;
+}
+.number-of-events {
+    width: 150px;
+    background-color: #000;
+    border: 1px solid #FDE74C;
+    color: #fff;
+    font-family: 'Quicksand';
+}
+::placeholder {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .NumberOfEvents-container  {
+        margin: 3% 0;
+    }
+}

@@ -8,7 +8,7 @@ export default class Event extends Component {
 
   render() {
 
-    const toggleButtonClickState= () => {
+    const toggleButtonClickState = () => {
       this.state.detailsDisplayed ? this.setState({detailsDisplayed: false}) : this.setState({detailsDisplayed: true});
     }
 

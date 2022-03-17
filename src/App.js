@@ -72,9 +72,12 @@ export default class App extends Component {
 
     return (
       <div className="App">
+        <div className='filter-container'>
+          <NumberOfEvents updateEvents={this.updateEvents}/>
+          <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
+        </div>
+        
         <EventList events={this.state.events}/>
-        <NumberOfEvents updateEvents={this.updateEvents}/>
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
       </div>
     );
 

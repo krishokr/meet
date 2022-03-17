@@ -1,0 +1,16 @@
+.EventList {
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr;
+}
+
+@media (max-width: 800px) {
+    .EventList {
+        grid-template-columns: 6fr 6fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .EventList {
+        grid-template-columns: 12fr;
+    }
+}

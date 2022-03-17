@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Styles/CitySearch.css';
 
 export default class CitySearch extends Component {
 
@@ -25,7 +26,7 @@ export default class CitySearch extends Component {
     
     return (
       <div className="CitySearch">
-          <input onFocus={() => { this.setState({ showSuggestions: true }) }} onChange={this.handleInputChange} type="text" className="city" value={this.state.query}/>
+          <input className="city" onFocus={() => { this.setState({ showSuggestions: true }) }} onChange={this.handleInputChange} type="text" placeholder='enter a city' value={this.state.query}/>
           <ul className='suggestions' style={this.state.showSuggestions ? {} : {display: 'none'}}>
               {this.state.suggestions.map(suggestion => <li onClick={() => this.handleItemClick(suggestion)} key={suggestion}>{suggestion}</li>)}
               <li className='allCities' onClick={() => this.handleItemClick('all')} key='all'><b>See all cities</b></li>
