@@ -58,55 +58,22 @@ export default class App extends Component {
 
   updateEvents = async(location, eventCount) => {
 
-    if (location) {
+    if (location) { 
       const isLocationAll = location === 'all';
-      isLocationAll ? this._locationIsAll(eventCount) : this._locationSpecified(location);
+      isLocationAll ? this._locationIsAll(eventCount) : this._locationSpecified(location); 
     }
     if (eventCount) {
       const isLocationAll = this.state.currentLocation === 'all';
       isLocationAll ? this._locationIsAll(eventCount) : this._eventCountSpecified(eventCount);
     }
-
   }
-
-
-  // updateEvents = async (location, eventCount) => {
-      
-  //     if (location) {
-  //       this.setState({currentLocation: location});
-  //       const locationEvents = this.state.allEvents.filter((event) => event.location === location);
-  //       const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
-  //       this.setState({ events: correctNumberOfEvents });
-  //     }
-
-  //     if (eventCount) {     
-  //         if (this.currentLocation !== 'all') {
-  //           const locationEvents = this.state.allEvents.filter(event => event.location === this.state.currentLocation);
-  //           const correctNumberOfEvents = locationEvents.slice(0, eventCount);
-  //           this.setState({events: correctNumberOfEvents})
-  //         }
-  //     }
-
-  //     if (eventCount && location) {
-  //       const locationEvents = this.state.allEvents.filter((event) => event.location === location);
-  //       const correctNumberOfEvents = (location === 'all') ? this.state.allEvents : locationEvents.slice(0,this.state.numberOfEvents);
-  //       this.setState({ events: correctNumberOfEvents });
-  //     }
-      
-      
-  // }
-
-  updateLength = (length) => {
-    return this.setState({numberOfEvents: length}, () => this.updateEvents(undefined, length))
-  }
-
 
   render() {
 
     return (
       <div className="App">
         <EventList events={this.state.events}/>
-        <NumberOfEvents updateLength={this.updateLength}/>
+        <NumberOfEvents updateEvents={this.updateEvents}/>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
       </div>
     );

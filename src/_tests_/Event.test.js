@@ -37,7 +37,7 @@ describe('<Event /> component', () => {
 
     test('on initial render, details are not shown', () => {
         EventWrapper.setState({detailsDisplayed: false});
-        expect(EventWrapper.find('.event-details').value('style')).toHaveProperty('display: none');
+        expect(EventWrapper.find('.event-details').props()['style']["display"]).toContain("none");
     });
 
     test('on initial .toggle-button click, details container is shown', () => {
