@@ -5,7 +5,8 @@ export default class Event extends Component {
   state = {
     detailsButtonClass: 'show-details-button',
     detailsButtonText: 'Show Details',
-    detailsContainerClass: 'hidden'
+    detailsContainerClass: 'hidden',
+    detailsDisplayed: false
   }
 
   render() {
@@ -25,19 +26,27 @@ export default class Event extends Component {
       return this.setState({detailsButtonText: 'Show Details'})
     }
 
-    const handleClick= () => {
+    const toggleButtonClickState= () => {
+      this.state.detailsDisplayed ? this.setState({detailsDisplayed: false}) : this.setState({detailsDisplayed: true})
       changeClass();
       changeText();
     }
+
+    const dateTimeFormat = (string) => {
+        const date = new Date(string);
+        return date.toDateString();
+    }
     
     return (
-      <div>
-        <h1>{this.props.event.summary}</h1>
-        <h2>{this.props.event.location}</h2>
-        <div className={this.state.detailsContainerClass}>
-          <h1 className='details-text'>{this.props.event.description}</h1>
+      <div className='event-card'>
+        <div className='title-container'>
+            <h2>{this.props.event.summary}</h2>
+            <h1>{dateTimeFormat(this.props.event.start.dateTime)}</h1>
+            <h2>{this.props.event.location}</h2>
         </div>
-        <button onClick={handleClick} className={this.state.detailsButtonClass}>{this.state.detailsButtonText}</button>
+        <h1 className="event-details" style={{display: this.state.detailsDisplayed ? "flex" : "none" }}>{this.props.event.description}</h1>
+        
+        <button onClick={toggleButtonClickState} className='toggle-button'>{this.state.detailsDisplayed ? 'Hide Details' : 'Show Details'}</button>
       </div>
     )
   }

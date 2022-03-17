@@ -15,59 +15,36 @@ describe('<Event /> component', () => {
     });
 
     test('details are hidden on initial render', () => {
-        expect(EventWrapper.state('detailsContainerClass')).toBe('hidden');
-        expect(EventWrapper.find('.hidden')).toHaveLength(1);
+        expect(EventWrapper.state('detailsDisplayed')).toBe(false);
     });
 
     test('render event details button', () => {
-        expect(EventWrapper.state('detailsButtonClass')).toBe('show-details-button');
-        expect(EventWrapper.find('.show-details-button')).toHaveLength(1);
-
-        expect(EventWrapper.state('detailsButtonText')).toBe('Show Details');
-        expect(EventWrapper.find('.show-details-button').text()).toBe('Show Details');
+        expect(EventWrapper.state('detailsDisplayed')).toBe(false);
+        expect(EventWrapper.find('.toggle-button').text()).toEqual('Show Details');
     });
 
-    test('on .show-details-button click render .hide-details-button', () => {
-        EventWrapper.setState({detailsButtonClass: 'show-details-button', detailsButtonText: 'Show Details'}, () => {
-            EventWrapper.find('.show-details-button').simulate('click')
-        });
-
-
-        expect(EventWrapper.state('detailsButtonClass')).toBe('hide-details-button');
-        expect(EventWrapper.find('.hide-details-button')).toHaveLength(1);
-
-        expect(EventWrapper.state('detailsButtonText')).toBe('Hide Details');
-        expect(EventWrapper.find('.hide-details-button').text()).toBe('Hide Details');
+    test('on initial .toggle-button click render Hide Details', () => {
+        EventWrapper.find('.toggle-button').simulate('click');
+        expect(EventWrapper.find('.toggle-button').text()).toBe('Hide Details');
     })
 
-    test('on .hide-details-button click render .show-details-button', () => {
-        EventWrapper.setState({detailsButtonClass: 'hide-details-button', detailsButtonText: 'Hide Details'}, () => {
-            EventWrapper.find('.hide-details-button').simulate('click')
-        });
-        
-        expect(EventWrapper.state('detailsButtonClass')).toBe('show-details-button');
-        expect(EventWrapper.find('.show-details-button')).toHaveLength(1);
-
-        expect(EventWrapper.state('detailsButtonText')).toBe('Show Details');
-        expect(EventWrapper.find('.show-details-button').text()).toBe('Show Details');
+    test('when details are displayed, on .toggle-button click render Show Details', () => {
+        EventWrapper.setState({detailsDisplayed: true});
+        EventWrapper.find('.toggle-button').simulate('click');
+        expect(EventWrapper.state('detailsDisplayed')).toBe(false);
+        expect(EventWrapper.find('.toggle-button').text()).toBe('Show Details');
     });
 
-    test('on .show-details-button click, details container is shown', () => {
-        EventWrapper.setState({detailsButtonClass: 'show-details-button', detailsButtonText: 'Show Details'}, () => {
-            EventWrapper.find('.show-details-button').simulate('click')
-        });
+    test('on initial render, details are not shown', () => {
+        EventWrapper.setState({detailsDisplayed: false});
+        expect(EventWrapper.find('.event-details').value('style')).toHaveProperty('display: none');
+    });
 
-        expect(EventWrapper.state('detailsContainerClass')).toBe('shown');
-        expect(EventWrapper.find('.shown')).toHaveLength(1);
+    test('on initial .toggle-button click, details container is shown', () => {
+        EventWrapper.setState({detailsDisplayed: false});
+        EventWrapper.find('.toggle-button').simulate('click');
+        expect(EventWrapper.find('.event-details').text()).toBeTruthy();
     });
     
-    test('render detail text', () => {
-        EventWrapper.setState({detailsButtonClass: 'show-details-button', detailsButtonText: 'Show Details'}, () => {
-            EventWrapper.find('.show-details-button').simulate('click')
-        });
-
-        let details = event.description;
-        expect(EventWrapper.find('.details-text').text()).toBe(details);
-    });
 
 })
