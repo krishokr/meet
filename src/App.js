@@ -12,7 +12,7 @@ export default class App extends Component {
     events: [],
     locations: [],
     currentLocation: '',
-    numberOfEvents: 3
+    numberOfEvents: 5
   }
 
   componentDidMount() {

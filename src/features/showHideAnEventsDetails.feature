@@ -11,6 +11,7 @@ When the user selects an event element.
 Then the event element is expanded to see the details.
 
 Scenario: User can collapse an event to hide its details	
-Given the event elements are displayed.
+Given the event elements are displayed
+And an event is already selected
 When the user deselects an event element.
 Then the event element should be hidden to hide its details.

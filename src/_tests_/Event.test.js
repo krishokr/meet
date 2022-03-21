@@ -43,7 +43,7 @@ describe('<Event /> component', () => {
     test('on initial .toggle-button click, details container is shown', () => {
         EventWrapper.setState({detailsDisplayed: false});
         EventWrapper.find('.toggle-button').simulate('click');
-        expect(EventWrapper.find('.event-details').text()).toBeTruthy();
+        expect(EventWrapper.find('.event-details').prop('style')).toStrictEqual({"display": "flex"});
     });
     
 
