@@ -44,7 +44,7 @@ p {
 
 .Alert {
   position: fixed;
-  top: 20px;
+  top: 5%;
 }
 
 .data-vis-wrapper {
@@ -123,5 +123,13 @@ p {
     max-width: 50%;
     min-width: auto;
     margin: 0 auto;
+  }
+
+}
+
+@media (max-width: 800px) {
+  .Alert {
+    position: fixed;
+    top: 1%;
   }
 }
