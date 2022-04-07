@@ -43,8 +43,7 @@ p {
 }
 
 .Alert {
-  position: fixed;
-  top: 5%;
+  /* transform: translateX(-30px); */
 }
 
 .data-vis-wrapper {
@@ -129,7 +128,7 @@ p {
 
 @media (max-width: 800px) {
   .Alert {
-    position: fixed;
-    top: 1%;
+    /* position: absolute;
+    top: 0; */
   }
 }
