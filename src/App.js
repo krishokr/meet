@@ -5,6 +5,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import logo from './logo.png';
 
 export default class App extends Component {
   state = {
@@ -73,6 +74,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <div className='filter-container'>
+          <img alt='hang logo' className='logo' src={logo}/>
           <NumberOfEvents updateEvents={this.updateEvents}/>
           <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
         </div>
