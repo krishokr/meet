@@ -73,12 +73,20 @@ async function getEvents() {
         NProgress.done();
         return mockData;
     }
+
+    if (!navigator.onLine) {
+      const data = localStorage.getItem("lastEvents");
+      NProgress.done();
+      return data ? JSON.parse().events : [];
+    }
+
     const token = await getAccessToken();
 
     if (token) {
         removeQuery();
         const url = 'https://aiaelv39hf.execute-api.us-west-1.amazonaws.com/dev/api/get-events' + '/' + token;
         const result = await axios.get(url);
+
         if (result.data) {
         var locations = extractLocations(result.data.events);
         localStorage.setItem("lastEvents", JSON.stringify(result.data));
@@ -87,6 +95,8 @@ async function getEvents() {
         NProgress.done();
         return result.data.events;
     } 
+
+    
 }
 
 export {extractLocations, getEvents};
