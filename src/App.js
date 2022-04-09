@@ -9,6 +9,11 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from
 import logo from './logo.png';
 import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
+import {
+  PieChart, Pie, Sector, Cell, ScatterChart, Scatter, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts';
+import './EventGenre';
+import EventGenre from './EventGenre';
 
 
 export default class App extends Component {
@@ -41,9 +46,9 @@ export default class App extends Component {
       this.setState({ showWelcomeScreen: !(code || isTokenValid) });
       if ((code || isTokenValid) && this.mounted) {
         getEvents().then((events) => {
-        if (this.mounted) {
-          this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
-        }
+          if (this.mounted) {
+            this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
+          }
       });
     }
   }
@@ -91,10 +96,22 @@ export default class App extends Component {
     }
   }
 
+  getData = () => {
+    const {locations, allEvents} = this.state;
+    const data = locations.map((location)=>{
+      const number = allEvents.filter((event) => event.location === location).length
+      const city = location.split(', ').shift()
+      return {city, number};
+    })
+    return data;
+  };
+
+  
+
   render() {
 
-    if (this.state.showWelcomeScreen === undefined) return <div
-      className="App" />
+    // if (this.state.showWelcomeScreen === undefined) return <div
+    //   className="App" />
       
     return (
       <div className="App">
@@ -105,6 +122,29 @@ export default class App extends Component {
           <NumberOfEvents updateEvents={this.updateEvents}/>
           <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
         </div>
+
+        <div className='data-vis-wrapper'>
+          <EventGenre events={this.allEvents} />
+
+          <ResponsiveContainer height={400} width={400}>
+            <BarChart data={this.getData()}>
+              <CartesianGrid />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis type="number" dataKey="number" name="number of events" />
+              <Tooltip />
+              <Bar dataKey="number" fill="#8884d8" />
+            </BarChart>
+            {/* <ScatterChart  margin={{ top: 20, right: 20,bottom: 20, left: 20}}> */}
+              {/* <CartesianGrid />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis type="number" dataKey="number" name="number of events" />
+              <Tooltip /> */}
+              {/* <Scatter name="Events" data={this.getData()} fill="#FDE74C" /> */}
+            {/* </ScatterChart> */}
+          </ResponsiveContainer>
+        </div>
+
+        
         
         <EventList events={this.state.events}/>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
