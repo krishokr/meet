@@ -12,8 +12,7 @@ import WelcomeScreen from './WelcomeScreen';
 import {
   PieChart, Pie, Sector, Cell, ScatterChart, Scatter, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import './EventGenre';
-import EventGenre from './EventGenre';
+
 
 
 export default class App extends Component {
@@ -96,7 +95,7 @@ export default class App extends Component {
     }
   }
 
-  getData = () => {
+  getDataForBarChart = () => {
     const {locations, allEvents} = this.state;
     const data = locations.map((location)=>{
       const number = allEvents.filter((event) => event.location === location).length
@@ -105,6 +104,16 @@ export default class App extends Component {
     })
     return data;
   };
+
+  getDataForPieChart = () => {
+    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+        
+    const data = genres.map((genre) => {
+        const value = this.state.allEvents.filter(event => event.summary.split(' ').includes(genre)).length;
+        return {name: genre, value}
+    });
+    return data
+  }
 
   
 
@@ -124,10 +133,14 @@ export default class App extends Component {
         </div>
 
         <div className='data-vis-wrapper'>
-          <EventGenre events={this.state.allEvents} />
-
+          
           <ResponsiveContainer height={400}>
-            <BarChart data={this.getData()}>
+            <PieChart>
+              <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#fff" label/>
+            </PieChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer height={400}>
+            <BarChart data={this.getDataForBarChart()}>
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" />
