@@ -25,32 +25,32 @@ export default class App extends Component {
     showWelcomeScreen: undefined
   }
 
-  componentDidMount() {
-    this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({allEvents: events, locations: extractLocations(events)});
-        this.setState({events: events.slice(0,5)});
-      }
-    })
-  }
-
-  // async componentDidMount() {
-  //     this.mounted = true;
-  //     const accessToken = localStorage.getItem('access_token');
-  //     const isTokenValid = (await checkToken(accessToken)).error ? false :
-  //     true;
-  //     const searchParams = new URLSearchParams(window.location.search);
-  //     const code = searchParams.get("code");
-  //     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
-  //     if ((code || isTokenValid) && this.mounted) {
-  //       getEvents().then((events) => {
-  //         if (this.mounted) {
-  //           this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
-  //         }
-  //     });
-  //   }
+  // componentDidMount() {
+  //   this.mounted = true;
+  //   getEvents().then((events) => {
+  //     if (this.mounted) {
+  //       this.setState({allEvents: events, locations: extractLocations(events)});
+  //       this.setState({events: events.slice(0,5)});
+  //     }
+  //   })
   // }
+
+  async componentDidMount() {
+      this.mounted = true;
+      const accessToken = localStorage.getItem('access_token');
+      const isTokenValid = (await checkToken(accessToken)).error ? false :
+      true;
+      const searchParams = new URLSearchParams(window.location.search);
+      const code = searchParams.get("code");
+      this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+      if ((code || isTokenValid) && this.mounted) {
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
+          }
+      });
+    }
+  }
 
   componentWillUnmount() {
     this.mounted = false;
@@ -115,6 +115,12 @@ export default class App extends Component {
     return data
   }
 
+  mapGenresToColor = () => {
+    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+    const colors = ['#2364AA', '#3DA5D9', '#73BFB8', '#FEC601', '#EA7317']
+    return genres.map((genre, index) => <Cell key={genre} fill={colors[index]}/>)
+  }
+
   
 
   render() {
@@ -133,34 +139,29 @@ export default class App extends Component {
         </div>
 
         <div className='data-vis-wrapper'>
-          
-          <ResponsiveContainer height={400}>
+          <ResponsiveContainer height={200}>
             <PieChart>
-              <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#fff" label/>
+              <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#fff" label>
+                {this.mapGenresToColor()}
+              </Pie>
+              <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-          <ResponsiveContainer height={400}>
+          <ResponsiveContainer height={300}>
             <BarChart data={this.getDataForBarChart()}>
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" />
               <Tooltip />
-              <Bar dataKey="number" fill="#8884d8" />
+              <Bar dataKey="number" fill="#61dafb" />
             </BarChart>
-            {/* <ScatterChart  margin={{ top: 20, right: 20,bottom: 20, left: 20}}> */}
-              {/* <CartesianGrid />
-              <XAxis type="category" dataKey="city" name="city" />
-              <YAxis type="number" dataKey="number" name="number of events" />
-              <Tooltip /> */}
-              {/* <Scatter name="Events" data={this.getData()} fill="#FDE74C" /> */}
-            {/* </ScatterChart> */}
           </ResponsiveContainer>
         </div>
 
         
         
         <EventList events={this.state.events}/>
-        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} /> */}
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
       </div>
     );
 

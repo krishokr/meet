@@ -27,6 +27,12 @@
   top: 25px;
 }
 
+.data-vis-wrapper {
+  margin: 10%;
+}
+
+
+
 @media(max-width: 768px) {
   .logo {
     top: 10px;
