@@ -26,32 +26,32 @@ export default class App extends Component {
     showWelcomeScreen: undefined
   }
 
-  // componentDidMount() {
-  //   this.mounted = true;
-  //   getEvents().then((events) => {
-  //     if (this.mounted) {
-  //       this.setState({allEvents: events, locations: extractLocations(events)});
-  //       this.setState({events: events.slice(0,5)});
-  //     }
-  //   })
-  // }
-
-  async componentDidMount() {
-      this.mounted = true;
-      const accessToken = localStorage.getItem('access_token');
-      const isTokenValid = (await checkToken(accessToken)).error ? false :
-      true;
-      const searchParams = new URLSearchParams(window.location.search);
-      const code = searchParams.get("code");
-      this.setState({ showWelcomeScreen: !(code || isTokenValid) });
-      if ((code || isTokenValid) && this.mounted) {
-        getEvents().then((events) => {
-          if (this.mounted) {
-            this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
-          }
-      });
-    }
+  componentDidMount() {
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({allEvents: events, locations: extractLocations(events)});
+        this.setState({events: events.slice(0,5)});
+      }
+    })
   }
+
+  // async componentDidMount() {
+  //     this.mounted = true;
+  //     const accessToken = localStorage.getItem('access_token');
+  //     const isTokenValid = (await checkToken(accessToken)).error ? false :
+  //     true;
+  //     const searchParams = new URLSearchParams(window.location.search);
+  //     const code = searchParams.get("code");
+  //     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+  //     if ((code || isTokenValid) && this.mounted) {
+  //       getEvents().then((events) => {
+  //         if (this.mounted) {
+  //           this.setState({ allEvents: events, locations: extractLocations(events), events: events.slice(0,5) });
+  //         }
+  //     });
+  //   }
+  // }
 
   componentWillUnmount() {
     this.mounted = false;
@@ -124,9 +124,9 @@ export default class App extends Component {
         </div>
 
         <div className='data-vis-wrapper'>
-          <EventGenre events={this.allEvents} />
+          <EventGenre events={this.state.allEvents} />
 
-          <ResponsiveContainer height={400} width={400}>
+          <ResponsiveContainer height={400}>
             <BarChart data={this.getData()}>
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
@@ -147,7 +147,7 @@ export default class App extends Component {
         
         
         <EventList events={this.state.events}/>
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
+        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} /> */}
       </div>
     );
 
