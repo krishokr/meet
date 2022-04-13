@@ -130,6 +130,10 @@ export default class App extends Component {
       
     return (
       <div className="App">
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
+        
+        <div className='container' style={{display: this.state.showWelcomeScreen ? 'none' : ''}}>
+
         
         <div className='filter-container'>
          {!navigator.onLine ? <OfflineAlert text='Application is offline.' /> : ''}
@@ -143,15 +147,15 @@ export default class App extends Component {
         <h1>Time to hang. Here are your events.</h1>
         <div className='data-vis-wrapper'>
           
-          <ResponsiveContainer height={200} width={200}>
+        <ResponsiveContainer height={150}>
             <PieChart>
-              <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#fff" label>
+              <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} label>
                 {this.mapGenresToColor()}
               </Pie>
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-          <ResponsiveContainer height={300} width={500}>
+          <ResponsiveContainer height={300} width={400}>
             <BarChart data={this.getDataForBarChart()}>
               <CartesianAxis />
               <XAxis type="category" dataKey="city" name="city" />
@@ -164,8 +168,8 @@ export default class App extends Component {
       </div>
         
         
-        <EventList style={{display: this.state.showWelcomeScreen ? 'none' : ''}} events={this.state.events}/>
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
+        <EventList events={this.state.events}/>
+        </div>
       </div>
     );
 
