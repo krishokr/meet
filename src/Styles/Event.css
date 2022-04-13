@@ -37,7 +37,10 @@
     font-size: 1.2vw;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
+    .event-card button {
+        font-size: 3vw;
+    }
     .event-details {
         font-size: 3vw;
     }
