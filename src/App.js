@@ -164,7 +164,7 @@ export default class App extends Component {
       </div>
         
         
-        <EventList events={this.state.events}/>
+        <EventList style={{display: this.state.showWelcomeScreen ? 'none' : ''}} events={this.state.events}/>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}getAccessToken={() => { getAccessToken() }} />
       </div>
     );
