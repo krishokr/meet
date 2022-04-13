@@ -151,7 +151,7 @@ export default class App extends Component {
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-          <ResponsiveContainer height={300} width={300}>
+          <ResponsiveContainer height={300} width={500}>
             <BarChart data={this.getDataForBarChart()}>
               <CartesianAxis />
               <XAxis type="category" dataKey="city" name="city" />
