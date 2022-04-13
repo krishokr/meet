@@ -1,15 +1,25 @@
 .event-card {
     color: #fff;
-    border: solid 1px #61dafb;
+    border: solid 1px #FDE74C;
     border-radius: 5px; 
     margin: 5% 8%;
+    background-color: #000;
+    box-shadow: 0px 0px 13px 5px rgba(0,0,0,0.36);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
 }
 
 .event-card button {
-    color: #61dafb;
+    color: #fff;
     font-size: 1.2vw;
     background-color: transparent;
-    border: none;
+    border: 1px solid #FDE74C;
+    border-radius: 10px;
+    padding: 1% 2%;
     border-width: 1px;
     transition: 0.5s;
     font-family: 'Quicksand';
@@ -18,7 +28,8 @@
 .event-card button:hover {
     cursor: pointer;
     color: #fff;
-    border: 1px solid #61dafb;
+    border: 1px solid rgb(97, 218, 251);
+    opacity: 0.8;
 }
 
 .event-details {

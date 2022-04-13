@@ -10,7 +10,7 @@ import logo from './logo.png';
 import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
 import {
-  PieChart, Pie, Sector, Cell, ScatterChart, Scatter, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  PieChart, Pie, Cell,  BarChart, Bar, XAxis, YAxis, CartesianAxis, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
 
 
@@ -137,9 +137,13 @@ export default class App extends Component {
           <NumberOfEvents updateEvents={this.updateEvents}/>
           <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
         </div>
-
+      
+      
+      <div className='dashboard-container'>
+        <h1>Time to hang. Here are your events.</h1>
         <div className='data-vis-wrapper'>
-          <ResponsiveContainer height={200}>
+          
+          <ResponsiveContainer height={200} width={200}>
             <PieChart>
               <Pie data={this.getDataForPieChart()} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#fff" label>
                 {this.mapGenresToColor()}
@@ -147,17 +151,17 @@ export default class App extends Component {
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-          <ResponsiveContainer height={300}>
+          <ResponsiveContainer height={300} width={300}>
             <BarChart data={this.getDataForBarChart()}>
-              <CartesianGrid />
+              <CartesianAxis />
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" />
-              <Tooltip />
-              <Bar dataKey="number" fill="#61dafb" />
+              <Bar name="number of events" dataKey="number" fill="#FDE74C" />
+              <Legend verticalAlign="top" height={36} iconType={'circle'}/>
             </BarChart>
           </ResponsiveContainer>
         </div>
-
+      </div>
         
         
         <EventList events={this.state.events}/>
